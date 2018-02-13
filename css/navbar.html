@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Navbar</title>
+    <style>
+    *{
+        margin:0;
+        padding:0;
+    }
+    .clearfix::after {
+        content: '';
+        display: block;
+        clear: both;
+    }
+    a{
+        text-decoration:none;
+        color:white;
+    }
+    body {
+        background-color: black;
+        color: white;
+    }
+    .header{
+        padding: 20px 16px 20px 16px;
+    }
+    .header nav{
+        float:right;
+        padding-top:7px;
+    }
+    .header .logo{
+        float:left;
+        font-size: 24px;
+        font-family:'Arial Black';
+        padding-top: 3px;
+        padding-bottom: 4px;
+    }
+    .header .logo span.rs{
+        color: #e6686a;
+    }
+    .header .logo span.card{
+        color: #9a9da2;
+    }
+    ul>li {
+        list-style: none;
+        float:left;
+        margin-right:34px;
+    }
+    ul>li>a {
+        
+        border-top:   3px solid transparent; 
+        border-bottom: 3px solid transparent;
+        padding-top:5px;
+        padding-bottom:5px;
+        display:block;
+        font-weight:bold;
+        font-size:12px;
+        color:#b7b7b7;
+    }
+    ul>li>a:hover{
+        border-bottom: 3px solid #e06567;
+    }
+    </style>
+</head>
+<body>
+    <div class="header clearfix">
+        <a class="logo" alt="logo" href="#">
+                    <span class="rs">RS</span>
+                    <span class="card">card</span>
+        </a>
+        <nav>
+            <ul>
+                    <li><a href="#">关于</a></li>
+                    <li><a href="#">技能</a></li>
+                    <li><a href="#">作品</a></li>
+                    <li><a href="#">博客</a></li>
+                    <li><a href="#">日历</a></li>
+                    <li><a href="#">联系方式</a></li>
+                    <li><a href="#">其他</a></li>
+            </ul>
+        </nav>
+    </div>
+
+</body>
+</html>
