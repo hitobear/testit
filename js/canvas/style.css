@@ -1,0 +1,73 @@
+*{
+    margin:0;
+    padding:0;
+}
+li{
+    list-style: none;
+}
+.icon {
+    width: 1em; height: 1em;
+    vertical-align: -0.15em;
+    fill: currentColor;
+    overflow: hidden;
+}
+#canvas{
+    position:fixed;
+    top:0;
+    left:0;
+}
+ul.actions{
+    position:fixed;
+    top:20px;
+    left:20px;
+    
+}
+ul.actions > li{
+    margin-right:0.6em;
+    display: inline-block;
+}
+ul.actions > li svg{
+    transition:all 0.5s;
+    font-size: 1.5em;
+}
+#actions button{
+    border-radius:3px;
+    display:inline-block;
+}
+#actions.eraseon #eraser{
+    display:none;
+}
+#actions.brushon #brush{
+    display:none;
+}
+ul.actions > li.active svg{
+    fill:red;
+}
+ol.colors{
+    position:fixed;
+    top:4em;
+    left:1em;
+}
+ol.colors > li > div{
+    height:1.2em;
+    width:1.2em;
+    margin-bottom: 0.5em;
+    border-radius:50%;
+    transition:all 0.5s;
+}
+ol.colors > li > div.active{
+    height:1.4em;
+    width:1.4em;
+}
+ol.colors > li > #red{
+    background-color: red;
+}
+ol.colors > li > #green{
+    background-color: green;
+}
+ol.colors > li > #blue{
+    background-color: blue;
+}
+ol.colors > li > #black{
+    background-color: black;
+}
