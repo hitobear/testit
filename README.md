@@ -1,5 +1,5 @@
 
-##canvas绘图示例
+## canvas绘图示例
 
 代码地址： https://github.com/hitobear/testit/tree/master/js/canvas
 
