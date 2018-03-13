@@ -54,7 +54,7 @@
 <body>
     <div id="siteWelcome" class="site-welcome active"><div class="loading"></div></div>
     
-    <div class="header clearfix">
+    <div class="header clearfix" id="header">
         <div class="header-inner">
             <a class="logo" alt="logo" href="#">
                 <span class="rs">RS</span>
@@ -161,6 +161,13 @@
         </section>
     </main>
 <script>
+    window.onscroll=function(event){
+        if(window.scrollY>0){
+          header.classList.add("sticky");
+        }else{
+            header.classList.remove("sticky");
+        }
+    }
     setTimeout(function(){
         siteWelcome.classList.remove("active");
     },1000)
