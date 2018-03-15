@@ -61,11 +61,16 @@
                 <span class="card">card</span>
              </a>
             <nav>
-                <ul class="clearfix">
+                <ul class="clearfix" >
                 <li><a href="#">关于</a></li>
                 <li><a href="#">技能</a></li>
                 <li><a href="#">作品</a></li>
-                <li><a href="#">博客</a></li>
+                <li class="menuTrigger">
+                        <a href="#">博客</a>
+                        <ol><li>博客1</li>
+                        <li>博客2</li>
+                        <li>博客3</li></ol>
+                </li>
                 <li><a href="#">日历</a></li>
                 <li><a href="#">联系方式</a></li>
                 <li><a href="#">其他</a></li>
@@ -171,6 +176,15 @@
     setTimeout(function(){
         siteWelcome.classList.remove("active");
     },1000)
+    var menuTriggerlist=document.getElementsByClassName("menuTrigger");
+    for(var i=0;i<menuTriggerlist.length;i++){
+      menuTriggerlist[i].onmouseenter=function(e){
+          e.currentTarget.classList.add("active");
+      }
+      menuTriggerlist[i].onmouseleave=function(e){
+          e.currentTarget.classList.remove("active");
+      }
+    }
 </script>
 </body>
 </html>

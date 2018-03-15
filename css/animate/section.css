@@ -61,12 +61,37 @@
     .header .logo span.card{
         color: #9a9da2;
     }
-    ul>li {
+    li{
         list-style: none;
+    }
+    nav ul>li>ol{
+        display:none;
+    }
+    nav ul>li>ol>li:hover{
+        cursor: pointer;
+    }
+    @keyframes submenuSlide{
+        0% {
+            right:100%;
+        }
+        100%{
+            right:0;
+        }
+    }
+    nav ul>li.active>ol{
+        display:block;
+        position:absolute;
+        white-space:nowrap;
+        right: 0px;
+        animation: submenuSlide 0.3s;
+    }
+    nav ul>li {
+       
         float:left;
         margin:0 17px;
+        position:relative;
     }
-    ul>li>a {
+    nav ul>li>a {
         
         border-top:   3px solid transparent; 
         border-bottom: 3px solid transparent;
@@ -76,9 +101,26 @@
         font-weight:bold;
         font-size:12px;
         color:inherit;
+        position:relative;
     }
-    ul>li>a:hover{
-        border-bottom: 3px solid #e06567;
+    @keyframes menuSlide {
+        0% {
+            width:0;
+        }
+        100% {
+           width: 100%;
+        }
+    }
+    nav ul>li.active>a::after{
+        content:'';
+        display:block;
+        position:absolute;
+        width:100%;
+        top:100%;
+        left:0%;
+        height:3px;
+        background: #e06567;
+        animation: menuSlide 0.3s linear;
     }
     div.banner{
         background-image: url(./img/rs-cover.jpg);
@@ -165,6 +207,7 @@
         border-radius: 50%;
         margin: 16px;
     }
+
     .userCard > footer.media > a:hover {
         background: #CF5D5F;
     }
