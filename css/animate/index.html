@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Navbar</title>
-    <link rel="stylesheet" href="./section.css">
+    <link rel="stylesheet" href="./main.css">
     <script src="//at.alicdn.com/t/font_570387_u4gt2gi29k40lik9.js"></script>
     <style>
     .loading{
@@ -60,11 +60,11 @@
                 <span class="rs">RS</span>
                 <span class="card">card</span>
              </a>
-            <nav>
+            <nav class="menu">
                 <ul class="clearfix" >
-                <li><a href="#">关于</a></li>
-                <li><a href="#">技能</a></li>
-                <li><a href="#">作品</a></li>
+                <li><a href="#siteAbout">关于</a></li>
+                <li><a href="#skills">技能</a></li>
+                <li><a href="#siteWorks">作品</a></li>
                 <li class="menuTrigger">
                         <a href="#">博客</a>
                         <ol><li>博客1</li>
@@ -80,7 +80,7 @@
     </div>
     <div class="banner"><div class="mask"></div></div>
     <main>
-        <div class="userCard">
+        <div class="userCard" id="siteAbout">
             <div class="desc clearfix">
                 <div class="picture">
                     <img src="./img/avatar.jpg" alt="头像" width="299" height="347">
@@ -133,27 +133,27 @@
                     <li>
                         <div class="data">WordPress</div>
                         <div class="bar">
-                            <span class="bar-fill"></span>
+                            <span class="bar-fill wordpress"></span>
                         </div>
                     </li>
                     <li>HTML&CSS
                             <div class="bar">
-                                    <span class="bar-fill"></span>
+                                    <span class="bar-fill html"></span>
                             </div>
                     </li>
                     <li>JavaScript
                             <div class="bar">
-                                    <span class="bar-fill"></span>
+                                    <span class="bar-fill js"></span>
                                 </div>
                     </li>
                     <li>PHP&Mysql
                             <div class="bar">
-                                    <span class="bar-fill"></span>
+                                    <span class="bar-fill php"></span>
                                 </div>
                     </li>
                     <li>Drupal
                             <div class="bar">
-                                    <span class="bar-fill"></span>
+                                    <span class="bar-fill drupal"></span>
                                 </div>
                     </li>
                     <li>Photoshop
@@ -163,6 +163,28 @@
                     </li>
                 </ul>
             </div>
+        </section>
+        <section class="portfolio" id="siteWorks">
+                <h2>作品集</h2>
+                <nav>
+                    <ol class="clearfix">
+                        <li id="portfolio1">所有</li>
+                        <li id="portfolio2">框架</li>
+                        <li id="portfolio3">原生JS/CSS</li>
+                    </ol>
+                    <div id="portfolioBar" class="bar state-1"></div>
+                </nav>
+                <div class="works" style="height: 597px;">
+                        <div class="big" style="top: 0; left: 0;">
+                          <img src="./img/1.jpg" alt="作品1">
+                        </div>
+                        <div class="small" style="top: 0; left: 645px;">
+                          <img src="./img/2.jpg" alt="作品2">
+                        </div>
+                        <div class="small" style="top: 312px; left: 645px;">
+                          <img src="./img/3.jpg" alt="作品3">
+                        </div>
+                </div>
         </section>
     </main>
 <script>
@@ -176,14 +198,34 @@
     setTimeout(function(){
         siteWelcome.classList.remove("active");
     },1000)
-    var menuTriggerlist=document.getElementsByClassName("menuTrigger");
-    for(var i=0;i<menuTriggerlist.length;i++){
-      menuTriggerlist[i].onmouseenter=function(e){
+    var liTags=document.querySelectorAll('nav.menu > ul > li');
+    for(var i=0;i<liTags.length;i++){
+      liTags[i].onmouseenter=function(e){
           e.currentTarget.classList.add("active");
       }
-      menuTriggerlist[i].onmouseleave=function(e){
+      liTags[i].onmouseleave=function(e){
           e.currentTarget.classList.remove("active");
       }
+    }
+    var anchors=document.querySelectorAll('nav.menu > ul > li >a');
+    for(var i=0;i<anchors.length;i++){
+        anchors[i].onclick=function(e){
+            e.preventDefault();//重要，必须有，否则新效果无效
+            var href=e.currentTarget.getAttribute('href');
+            var section=document.querySelector(href);
+            let top=section.offsetTop;
+            window.scrollTo(0,top - 80);
+        }
+    }
+
+    portfolio1.onclick=function(){
+        portfolioBar.className="bar state-1";
+    }
+    portfolio2.onclick=function(){
+        portfolioBar.className="bar state-2";
+    }
+    portfolio3.onclick=function(){
+        portfolioBar.className="bar state-3";
     }
 </script>
 </body>
