@@ -187,6 +187,7 @@
                 </div>
         </section>
     </main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tween.js/16.3.5/Tween.min.js"></script>
 <script>
     window.onscroll=function(event){
         if(window.scrollY>0){
@@ -207,6 +208,11 @@
           e.currentTarget.classList.remove("active");
       }
     }
+    function animate(time) {
+        requestAnimationFrame(animate);
+        TWEEN.update(time);
+    }
+    requestAnimationFrame(animate);
     var anchors=document.querySelectorAll('nav.menu > ul > li >a');
     for(var i=0;i<anchors.length;i++){
         anchors[i].onclick=function(e){
@@ -214,8 +220,25 @@
             var href=e.currentTarget.getAttribute('href');
             var section=document.querySelector(href);
             let top=section.offsetTop;
-            window.scrollTo(0,top - 80);
-        }
+            var targetY=top-80;
+            var currentY=window.scrollY;
+            console.log("targetY:"+targetY);
+            console.log("currentY:"+currentY);
+            var t=Math.abs(300*(targetY-currentY)/100)
+            if(t>300){
+                t=300;
+            }
+           // window.scrollTo(0,top - 80);
+            var coords = { x: 0, y: currentY }; // Start at (0, 0)
+            var tween = new TWEEN.Tween(coords) // Create a new tween that modifies 'coords'.
+                .to({ x: 0, y: targetY }, t) // Move to (300, 200) in 1 second.
+                .easing(TWEEN.Easing.Quadratic.Out) // Use an easing function to make the animation smooth.
+                .onUpdate(function() { // Called after tween.js updates 'coords'.
+                   console.log("onupdate")
+                   window.scrollTo( coords.x, coords.y);
+                })
+                .start(); // Start the tween immediately.
+            }
     }
 
     portfolio1.onclick=function(){
