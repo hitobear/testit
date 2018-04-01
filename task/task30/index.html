@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>无缝轮播</title>
+  <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <style>
+  .red{
+  color: red;
+}
+img{
+  position:absolute;
+  transition: all 0.5s;
+  left:0;
+  top:0;
+}
+
+img.enter{
+  transform:translateX(100%);
+}
+img.current{
+  z-index:1;
+}
+img.leave{
+  transform:translateX(-100%);
+}
+.images{
+      display:flex;
+      transition: all 0.5s;
+      position:relative;
+      height:200px;
+}
+.images > img{
+      vertical-align: top;
+}
+.window{
+      width: 300px;
+      overflow: hidden;
+}
+
+#buttons span{
+  cursor:pointer;
+}
+  </style>
+</head>
+<body>
+    <div class="window">
+    <div class="images" id=images>
+      <img src="https://fthmb.tqn.com/0ui_Zw01Ht9NHJkSBlqOIC1IH44=/960x0/filters:no_upscale()/yorkshire-terrier-583788122-581630e85f9b581c0b018a00.jpg" width=300 alt="图片1" height=200>
+      <img src="https://canna-pet.com/wp-content/uploads/2017/06/20-longest-living-dog-breeds_canna-pet-e1498599846169.jpg" width=300 alt="" height=200>
+      <img src="https://fthmb.tqn.com/0ui_Zw01Ht9NHJkSBlqOIC1IH44=/960x0/filters:no_upscale()/yorkshire-terrier-583788122-581630e85f9b581c0b018a00.jpg" width=300 alt="" height=200>
+      <img src="https://canna-pet.com/wp-content/uploads/2017/06/20-longest-living-dog-breeds_canna-pet-e1498599846169.jpg" width=300 alt="" height=200>
+    </div>
+  </div>
+  <span id=buttons>
+    <span>第1张</span>
+    <span>第2张</span>
+    <span>第3张</span>
+    <span>第4张</span>
+  </span>
+
+<script>
+var n=0;
+var timeInterval=3000;
+var timerId;
+
+initialSlider();
+listenToEvent();
+
+function initialSlider(){
+  makeCurrent(getJqueryObj(n)).siblings().addClass("enter").removeClass("leave current");
+  activeButton(n);
+  startTimer();
+}
+
+function listenToEvent(){
+    $("#buttons > span").each((index,value)=>{
+        $(value).on("click",()=>restartFromIndex(index));
+    });
+
+    $(".window").on("mouseenter",() => {          
+        stopTimer();
+    });
+    $(".window").on("mouseleave",() => {          
+        startTimer();
+    });
+}
+function makeCurrent($node){
+  return $node.removeClass("enter leave").addClass("current");
+  
+}
+function makeLeave($node){
+return $node.removeClass("enter current").addClass("leave");
+  
+}
+function makeEnter($node){
+return $node.removeClass("leave current").addClass("enter");
+  
+}
+function getJqueryObj(index){
+  return $("#images > img").eq(index);
+}
+
+function startTimer(){
+  timerId= setInterval(()=>{
+         makeLeave(getJqueryObj(amendIndex(n))).one("transitionend",(e)=>{
+            makeEnter($(e.currentTarget));
+         });
+         makeCurrent(getJqueryObj(amendIndex(n+1)));
+         activeButton(amendIndex(n+1));
+         n+=1;
+        },timeInterval);
+}
+function stopTimer(){
+  window.clearInterval(timerId);
+}
+
+function activeButton(index){
+  $('#buttons > span').eq(index).addClass("red").siblings().removeClass("red");
+}
+function restartFromIndex(index){
+    stopTimer();
+    n=index;
+    initialSlider();
+   
+}
+function amendIndex(n){
+  if(n>=4){
+    n=n%4;
+  }
+  return n;
+}
+</script>    
+</body>
+</html>
