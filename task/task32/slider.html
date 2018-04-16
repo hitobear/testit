@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>苹果轮播</title>
+  <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <style>
+  .red{
+  color: red;
+}
+img{
+  transition: all 0.5s;
+}
+
+img.enter{
+  transform:translateX(100%);
+}
+img.current{
+  z-index:1;
+}
+img.leave{
+  transform:translateX(-100%);
+}
+.images{
+      display:flex;
+      transition: all 0.5s;
+      position:relative;
+      height:200px;
+}
+.images > img{
+      vertical-align: top;
+}
+.window{
+      width: 300px;
+      overflow: hidden;
+}
+
+#buttons span{
+  cursor:pointer;
+}
+  </style>
+</head>
+<body>
+    <div class="window">
+    <div class="images" id=images>
+      <img src="./1.png" width=300 alt="图片1" height=200>
+      <img src="./2.png" width=300 alt="图片2" height=200>
+      <img src="./3.png" width=300 alt="图片3" height=200>
+      <img src="./4.png" width=300 alt="图片4" height=200>
+    </div>
+  </div>
+  <span id=buttons>
+    <span>第1张</span>
+    <span>第2张</span>
+    <span>第3张</span>
+    <span>第4张</span>
+  </span>
+  <div id="buttons">
+    <button id="previous">上一张</button>
+    <button id="next">下一张</buttong>
+  </div>
+
+<script>
+var n=0;
+var current=0;
+var timeInterval=3000;
+var timerId;
+var imageWidth = 300;
+var $slides =  $('#images');
+var $images = $slides.children('img')
+initialSlider();
+listenToEvent();
+makeFakeSlides();
+function initialSlider(){
+  makeCurrent(n);
+  startTimer();
+}
+
+function listenToEvent(){
+
+    $(".window").on("mouseenter",() => {    
+      console.log("enter")      
+        stopTimer();
+    }).on("mouseleave",() => {  
+      console.log("move")        
+        startTimer();
+    });
+    $("#next").on("click",()=>{
+      makeCurrent(amendIndex(current+1));
+   })
+   $("#previous").on("click",()=>{
+     makeCurrent(amendIndex(current-1));
+   })
+}
+
+function makeCurrent(n){
+  console.log(current+":n"+n)
+  if(current === $images.length-1 && n === 0){
+    $slides.css({transform:`translateX(${-($images.length + 1) * imageWidth}px)`})
+      .one('transitionend', function(){
+        $slides.hide()
+        $slides.offset()
+        $slides.css({transform:`translateX(${-(n+1)*imageWidth}px)`}).show()
+      })
+  }else if(n === $images.length-1 && current === 0){
+    $slides.css({transform:`translateX(0px)`})
+      .one('transitionend', function(){
+        $slides.hide()
+        $slides.offset()
+        $slides.css({transform:`translateX(${-$images.length*imageWidth}px)`}).show()
+      }) 
+  }else{
+    $slides.css({transform:`translateX(${(-(n+1)*imageWidth)}px)`}); 
+  }
+  
+
+  current=n;
+  return $(`images > nth:child(${n})`)
+  
+}
+
+function getJqueryObj(index){
+  return $("#images > img").eq(index);
+}
+
+function startTimer(){
+  timerId= setInterval(()=>{
+         makeCurrent(amendIndex(current+1));
+        },timeInterval);
+}
+function stopTimer(){
+  window.clearInterval(timerId);
+}
+
+function makeFakeSlides(){
+  let $firstCopy = $images.eq(0).clone(true)
+  let $lastCopy = $images.eq($images.length-1).clone(true)
+
+  $slides.append($firstCopy)
+  $slides.prepend($lastCopy)
+}
+function amendIndex(n){
+  if(n>=$images.length){
+    n=n%$images.length;
+  }else if(n<0){
+    n=$images.length-1;
+  }
+  return n;
+}
+</script>    
+</body>
+</html>

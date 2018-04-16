@@ -141,6 +141,7 @@
     }
     main .userCard{
         margin-top:-400px;
+        background:#fff;
     }
     .desc {
         padding: 50px;
@@ -342,6 +343,16 @@
     }
     section.portfolio .works>.big,section.portfolio .works>.small {
         position: absolute;
+    }
+    section.message > ol{
+        border-top: 1px solid #DDD;
+    }
+    section.message > ol > li {
+        padding: 16px;
+        border-bottom: 1px solid #DDD;
+    }
+    #messageForm{
+        margin:50px;
     }
     body{
         background: #efefef;
